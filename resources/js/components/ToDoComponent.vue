@@ -2,37 +2,38 @@
     <div class="container">
         <h1>To-Do</h1>
         <input-form @emitSubmit="addList"/>
-        <list :listdata="toDoList" @emitDelete="deleteList"/>
+        <list :listdata="toDo" @emitDelete="deleteList"/>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 
     export default {
         data(){
             return{
-                
+                toDo: [
+                    {
+                        title: "menyapu"
+                    },
+                    {
+                        title: "cuci piring"
+                    }   
+                ]
             }
         },
         computed: {
-            ...mapGetters({
-                toDoList: 'getToDo'
-            })
+
         },
         methods:{
             addList(inputform){
                 let newList = {
                     title: inputform
                 }
-                // this.list.push(newList)
-                this.$store.dispatch('addList', newList)
+                this.toDo.push(newList)
 
             },
             deleteList(index){
-                // this.list.splice(index,1)
-                this.$store.dispatch('deleteList', index)
-
+                this.toDo.splice(index,1)
             }
         },
         mounted() {
